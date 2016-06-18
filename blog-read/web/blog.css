@@ -1,0 +1,7 @@
+body{
+    font:"Trebuchet MS", sans-serif;
+    margin: 50px;
+}
+.hidden{
+    display:none;       
+}
