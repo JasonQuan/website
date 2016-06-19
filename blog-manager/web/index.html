@@ -2,33 +2,57 @@
 <html>
     <head>
         <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="jquery-ui/jquery-ui.css" rel="stylesheet">
         <link href="blog.css" rel="stylesheet">
     </head>
     <body>
-        <div id="loading">loading...</div>
-        <div class="articles">
+        <header>
+            <h1>html5 rsetful demo</h1>
+            <nav>
+                <a href="#" class="now">Home</a>
+            </nav>
+        </header>
+        <section class="content">
+            <aside class="right">
+                <div id="datepicker"></div>
+                <h1><span>文章列表</span><a class="ui-icon ui-icon-plusthick" href="m.html">+</a></h1>
+                <ul class="titles">
+                    
+                </ul>
+            </aside>
+            <article class="left">
+                <div id="loading">loading...</div>
+                <div class="articles">
 
-        </div>
-        <div id="template" class="hidden">
-            <div class="ui-widget">
-                <div class="ui-state-highlight ui-corner-all" style="padding: 0 .7em;">
-                    <p><span class="title"></span>
-                        <span class="create_date"></span>
-                    </p>
                 </div>
-            </div>
-            <div style="width: 96%;padding:1% 2%; overflow:hidden;">
-                <p class="content"></p>
-            </div>
-        </div>
+                <div id="template" class="hidden">
+                    <div class="ui-widget">
+                        <div class="p_title" style="padding: 0 .7em;">
+                            <p><span class="title"></span>
+                                <span class="create_date"></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div style="width: 96%;padding:1% 2%; overflow:hidden;">
+                        <p class="a_content"></p>
+                    </div>
+                </div>
+            </article>
+        </section>
+        <footer>
+        </footer>
         <script src="jquery-ui/external/jquery/jquery.js"></script>
         <script src="jquery-ui/jquery-ui.js"></script>
         <script src="blog.js"></script>
         <script>
+            $('nav a').button();
+            $("#datepicker").datepicker({
+                inline: true
+            });
             $(document).ready(function () {
+                loadTitles();
                 loadContent();
             });
         </script>

@@ -5,6 +5,19 @@ function getContextPath() {
     var result = pathName.substr(0, index + 1);
     return result;
 }
+function loadTitles() {
+    $.ajax({
+        url: serverAddress + '/resources/article/titles',
+        async: false,
+        type: 'get',
+        success: readTitles});
+}
+function readTitles(data, textStatus, jqXHR) {
+    var titles = $('.titles');
+    for (var i = 0; i < data.length; i++) {
+        titles.append('<li>' + data[i].title + '</li>');
+    }
+}
 function loadContent() {
     $.ajax({
         url: serverAddress + '/resources/article/list',
@@ -24,10 +37,10 @@ function newArticle(article) {
     newEle.attr('id', article.id);
     newEle.find(".title").text(article.title);
     newEle.find(".create_date").text(article.createTime);
-    newEle.find(".content").html(article.content);
+    newEle.find(".a_content").html(article.content);
     if (true) {//TODO: permission
-        var $trash = $('<span class="ui-icon ui-icon-trash"></span>');
-        var $refresh = $('<span class="ui-icon ui-icon-refresh"></span>');
+        var $trash = $('<span class="ui-icon ui-icon-trash trash"></span>');
+        var $refresh = $('<span class="ui-icon ui-icon-refresh refresh"></span>');
         $trash.click(function () {
             var aid = $(this).parent().parent().parent().parent().attr('id');
             removeA(aid);
@@ -65,9 +78,12 @@ function removeA(aid) {
         success: readlist});
 }
 function editA(aid) {
-    window.location.href = "m.html";
+    if (localStorage.draft_id !== undefined && localStorage.draft_id !== null) {
+        //TODO: message        
+    }
     var a = $('#' + aid);
     localStorage.draft_id = aid;
     localStorage.draft_title = a.find('.title').text();
-    localStorage.draft_content = a.find('.content').html();
+    localStorage.draft_content = a.find('.a_content').html();
+    window.location.href = "m.html";
 }

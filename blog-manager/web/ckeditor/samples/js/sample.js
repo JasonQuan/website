@@ -3,7 +3,7 @@ if (CKEDITOR.env.ie && CKEDITOR.env.version < 9) {
 }
 
 
-CKEDITOR.config.height = 150;
+CKEDITOR.config.height = 450;
 CKEDITOR.config.width = 'auto';
 CKEDITOR.on('instanceReady', function (e) {
     loadCacheData();
@@ -38,7 +38,7 @@ var initSample = (function () {
 })();
 function loadCacheData() {
     var aid = localStorage.draft_id;
-    if (aid != undefined && aid !== null) {
+    if (aid !== undefined && aid !== null) {
         $('#uuid').val(localStorage.draft_id);
         $('#title').val(localStorage.draft_title);
         CKEDITOR.instances.content.insertHtml(localStorage.draft_content);
@@ -52,7 +52,14 @@ function getContextPath() {
     return result;
 }
 function submit(type) {
-    send1Content(type, $('#title').val(), CKEDITOR.instances.content.getData());
+    var content = CKEDITOR.instances.content.getData();
+    var title = $('#title').val();
+    if (content.length !== 0 || title.length !== 0) {
+        send1Content(type, title, content);
+    }else{
+        //TOOD:message
+        console.log('empty request')
+    }
 }
 
 function send1Content(type, title, content) {
@@ -70,5 +77,13 @@ function send1ContentComplete(data) {
     if (data.status === 200) {
         $('#uuid').val(data.responseText);
     }
+}
+function cleanCache() {
+    //TODO:message
+    $('#title').val('');
+    CKEDITOR.instances.content.setData('');
+    localStorage.draft_id = '';
+    localStorage.draft_title = '';
+    localStorage.draft_content = '';
 }
 

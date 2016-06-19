@@ -53,7 +53,7 @@ public class ArticleDao {
     public void remove(String id) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-        Query createQuery = em.createNativeQuery("delete from ARTICLE where ID = :id").setParameter("id", id);
+        Query createQuery = em.createNativeQuery("delete from ARTICLE where ID = ?").setParameter("1", id);
         createQuery.executeUpdate();
         transaction.commit();
     }

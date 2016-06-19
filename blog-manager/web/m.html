@@ -18,9 +18,11 @@
                     <div id="radioset">
                         <input type="hidden" id="uuid"/>
                         标题：<input id="title"/>
+                        <span class="button" onclick="cleanCache()">Clean</span>
                         <span class="button" onclick="submit(1)">暂存</span>
                         <span class="button" onclick="submit(2)">公开发布</span>
                         <span class="button" onclick="submit(3)">私人发布</span>
+                        <a class="button" href="/blog-manager">Home</a>
                     </div>
                 </div>
                 <div id="content">
@@ -28,8 +30,7 @@
             </form>
         </div>
         <script>
-            initSample();
-            
+            initSample();            
             $(".button").button();
         </script>
     </body>

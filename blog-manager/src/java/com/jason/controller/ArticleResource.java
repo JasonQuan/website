@@ -28,6 +28,16 @@ public class ArticleResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON + ";charset=GB2312")
+    @Path("/titles")
+    public List<Article> getArticleTitles() throws JAXBException {
+        if (articles == null) {
+            articles = articleDao.getAll();
+        }
+        return articles;
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON + ";charset=GB2312")
     @Path("/list")
     public List<Article> getArticleList() throws JAXBException {
         if (articles == null) {
@@ -47,12 +57,11 @@ public class ArticleResource {
     @Consumes(MediaType.APPLICATION_JSON + ";charset=GB2312")
     @Path("/update/")
     public Response updateArticle(Article article) throws JAXBException {
-        if (article.getId() != null && article.getId().length() > 0) {
-            article.setUpdateTime(new Date());
-        } else {
+        if (article.getId() == null || article.getId().length() == 0) {
             article.setId(UUID.randomUUID().toString());
             article.setCreateTime(new Date());
         }
+        article.setUpdateTime(new Date());
         articleDao.persist(article);
         return Response.status(Response.Status.OK).entity(article.getId()).build();
     }
