@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="jquery-ui/jquery-ui.css" rel="stylesheet">
+        <link href="blog.css" rel="stylesheet">
+    </head>
+    <body>
+        <div id="loading">loading...</div>
+        <div class="articles">
+
+        </div>
+        <div id="template" class="hidden">
+            <div class="ui-widget">
+                <div class="ui-state-highlight ui-corner-all" style="padding: 0 .7em;">
+                    <p><span class="title"></span>
+                        <span class="create_date"></span>
+                    </p>
+                </div>
+            </div>
+            <div style="width: 96%;padding:1% 2%; overflow:hidden;">
+                <p class="content"></p>
+            </div>
+        </div>
+        <script src="jquery-ui/external/jquery/jquery.js"></script>
+        <script src="jquery-ui/jquery-ui.js"></script>
+        <script src="blog.js"></script>
+        <script>
+            $(document).ready(function () {
+                loadContent();
+            });
+        </script>
+    </body>
+</html>
