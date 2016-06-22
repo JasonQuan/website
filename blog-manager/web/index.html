@@ -1,60 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta charset="UTF-8">
-        <link href="jquery-ui/jquery-ui.css" rel="stylesheet">
-        <link href="blog.css" rel="stylesheet">
-    </head>
-    <body>
-        <header>
-            <h1>html5 rsetful demo</h1>
-            <nav>
-                <a href="#" class="now">Home</a>
-            </nav>
-        </header>
-        <section class="content">
-            <aside class="right">
-                <div id="datepicker"></div>
-                <h1><span>文章列表</span><a class="ui-icon ui-icon-plusthick" href="m.html">+</a></h1>
-                <ul class="titles">
-                    
-                </ul>
-            </aside>
-            <article class="left">
-                <div id="loading">loading...</div>
-                <div class="articles">
-
-                </div>
-                <div id="template" class="hidden">
-                    <div class="ui-widget">
-                        <div class="p_title" style="padding: 0 .7em;">
-                            <p><span class="title"></span>
-                                <span class="create_date"></span>
-                            </p>
-                        </div>
-                    </div>
-                    <div style="width: 96%;padding:1% 2%; overflow:hidden;">
-                        <p class="a_content"></p>
-                    </div>
-                </div>
-            </article>
-        </section>
-        <footer>
-        </footer>
-        <script src="jquery-ui/external/jquery/jquery.js"></script>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <link rel="shortcut icon" type="image/png" href="main/images/favicon.png" />  
+        <link type="text/css" rel="stylesheet" href="main/css/showcase.css" />
+        <link type="text/css" rel="stylesheet" href="main/css/perfect-scrollbar.css" />
+        <script type="text/javascript" src="jquery/jquery.js"></script>
+        <script type="text/javascript" src="jquery/jquery-plugins.js"></script> 
+        <script type="text/javascript" src="main/js/perfect-scrollbar.js"></script>
+        <script type="text/javascript" src="main/js/showcase.js"></script>
         <script src="jquery-ui/jquery-ui.js"></script>
-        <script src="blog.js"></script>
-        <script>
-            $('nav a').button();
-            $("#datepicker").datepicker({
-                inline: true
-            });
-            $(document).ready(function () {
-                loadTitles();
-                loadContent();
-            });
-        </script>
+        <link href="jquery-ui/jquery-ui.css" rel="stylesheet"/>        
+        <script src="ckeditor/ckeditor.js"></script>
+        <script src="ck.js"></script>
+        <link rel="stylesheet" href="ck.css"/>
+        <title>PrimeFaces ShowCase</title>
+    </head>
+    <body onload="initIndex()">
+        <!-- PC CONTENT STARTS HERE-->
+        <div class="PC">
+            <div id="MENUSIDE">
+                <div id="MENUSIDEindent">
+                    <span id="LOGO" class="bordersOfMenuSide">
+                        <img src="main/images/logo.svg" />
+                        <img id="BlueLogo" src="main/images/logoBlue.svg" class="hiddenLogo" />
+                    </span>
+                    <div class="MenuSideMainLink bordersOfMenuSide">
+                        <img src="main/images/zoom.svg" class="zoomIcon" />
+                        <input id="menuSearch" type="text" placeholder="Search Menu"
+                               class="boldFont fontSize14 mustClose searchInput" />
+                    </div>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                loadCategory();                
+            </script>
+
+            <div id="CONTENTSIDE">
+                <div id="CONTENTSIDEindent">
+                    <div class="login">
+                        <table>
+                            <tr><td>ID:</td><td><input id="loginId"/></td></tr>
+                            <tr><td>Password:</td><td><input type="password" id="password"/></td></tr>
+                            <tr><td></td><td></td></tr>
+                            <tr>
+                                <td colspan="2" style="text-align: center">
+                                    <span class="button" onclick="doLogin()">登陆</span>
+                                    <span class="button" onclick="$('.login').dialog('close')">取消</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- header bar start-->
+                    <div class="ContentSideSections" id="PFTopLinksCover" style="height:50px;">
+                        <a id="LOGOTEXTSIDE" href="http://www.primefaces.cn/index.xhtml">
+                            <span class="dispBlock logoDarkText fontSize30">PrimeFaces</span>
+                            <span class="dispBlock logoBlueText fontSize28 regularFont">SHOWCASE</span>
+                        </a>
+                        <span class="PFTopLinks floatRight" onclick="deleteDiary()">
+                            <img src="main/images/pfExtensions.svg" />
+                            <span class="PFGrayText">删&nbsp;除</span>
+                        </span>
+                        <span class="PFTopLinks floatRight" onclick="updateDiary()">
+                            <img src="main/images/pfExtensions.svg" />
+                            <span class="PFGrayText">编&nbsp;辑</span>
+                        </span>
+                        <span onclick="initEditor();" class="PFTopLinks floatRight boldFont marginRight20">
+                            <img src="main/images/pfMockosx.svg" />
+                            <span class="PFGrayText">&nbsp;写</span>
+                            <span class="PFDarkText">日记</span>
+                        </span>
+                        <span onclick="initIndex();" class="PFTopLinks floatRight boldFont">
+                            <img src="main/images/pfExtensions.svg" />
+                            <span class="PFGrayText">首&nbsp;</span>
+                            <span class="PFDarkText">页</span>
+                        </span>
+                        <a href="#" onclick="initIndex();" class="PFTopLinks floatRight boldFont">
+                            <img src="main/images/pfExtensions.svg" />
+                            <span class="PFGrayText">&nbsp;相</span>
+                            <span class="PFDarkText">&nbsp;册</span>
+                        </a>
+                        <span class="PFTopLinks floatRight boldFont cursorPointer" id="pushNav"  onclick="login();">
+                            <img src="main/images/pfPush.svg" />
+                            <span class="PFGrayText">Login</span>
+                        </span>
+                    </div>
+                    <!-- header bar end-->
+                    <div class="temp">
+                        loading...
+                    </div>
+                    <!-- footer start-->
+                    <div class="ContentSideSections bottom">
+                        <span class="floatLeft fontSize14 gray"></span>
+                        <span class="floatRight fontSize14 gray">个人技术测试网站，不对外公开</span>
+                        <div style="clear:both"></div>
+                    </div>
+                    <!-- footer end-->
+                </div>
+            </div>
+        </div>
+        <!-- PC CONTENT END-->
     </body>
 </html>
