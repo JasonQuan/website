@@ -15,7 +15,6 @@
         <script type="text/javascript" src="main/js/showcase.js"></script>
         <script src="jquery-ui/jquery-ui.js"></script>
         <link href="jquery-ui/jquery-ui.css" rel="stylesheet"/>        
-        <script src="ckeditor/ckeditor.js"></script>
         <script src="ck.js"></script>
         <link rel="stylesheet" href="ck.css"/>
         <title>PrimeFaces ShowCase</title>
@@ -32,13 +31,13 @@
                     <div class="MenuSideMainLink bordersOfMenuSide">
                         <img src="main/images/zoom.svg" class="zoomIcon" />
                         <input id="menuSearch" type="text" placeholder="Search Menu"
-                               class="boldFont fontSize14 mustClose searchInput" />
+                               class="fontSize14 mustClose searchInput" />
                     </div>
                 </div>
             </div>
 
             <script type="text/javascript">
-                loadCategory();                
+                loadCategory();
             </script>
 
             <div id="CONTENTSIDE">
@@ -62,32 +61,28 @@
                             <span class="dispBlock logoDarkText fontSize30">PrimeFaces</span>
                             <span class="dispBlock logoBlueText fontSize28 regularFont">SHOWCASE</span>
                         </a>
-                        <span class="PFTopLinks floatRight" onclick="deleteDiary()">
-                            <img src="main/images/pfExtensions.svg" />
+                        <span id="delete" class="opt PFTopLinks floatRight" onclick="login();">
+                            <img src="main/images/pfMockosx.svg" />
                             <span class="PFGrayText">删&nbsp;除</span>
                         </span>
-                        <span class="PFTopLinks floatRight" onclick="updateDiary()">
-                            <img src="main/images/pfExtensions.svg" />
+                        <span id="edit" class="opt PFTopLinks floatRight" onclick="login();">
+                            <img src="main/images/pfMockosx.svg" />
                             <span class="PFGrayText">编&nbsp;辑</span>
                         </span>
-                        <span onclick="initEditor();" class="PFTopLinks floatRight boldFont marginRight20">
+                        <span id="write" class="opt PFTopLinks floatRight marginRight20" onclick="login();">
                             <img src="main/images/pfMockosx.svg" />
                             <span class="PFGrayText">&nbsp;写</span>
                             <span class="PFDarkText">日记</span>
                         </span>
-                        <span onclick="initIndex();" class="PFTopLinks floatRight boldFont">
-                            <img src="main/images/pfExtensions.svg" />
-                            <span class="PFGrayText">首&nbsp;</span>
-                            <span class="PFDarkText">页</span>
-                        </span>
                         <a href="#" onclick="initIndex();" class="PFTopLinks floatRight boldFont">
-                            <img src="main/images/pfExtensions.svg" />
+                            <img src="main/images/pfMockosx.svg" />
                             <span class="PFGrayText">&nbsp;相</span>
                             <span class="PFDarkText">&nbsp;册</span>
                         </a>
-                        <span class="PFTopLinks floatRight boldFont cursorPointer" id="pushNav"  onclick="login();">
-                            <img src="main/images/pfPush.svg" />
-                            <span class="PFGrayText">Login</span>
+                        <span onclick="initIndex();" class="PFTopLinks floatRight boldFont">
+                            <img src="main/images/pfMockosx.svg" />
+                            <span class="PFGrayText">首&nbsp;</span>
+                            <span class="PFDarkText">页</span>
                         </span>
                     </div>
                     <!-- header bar end-->
@@ -105,5 +100,5 @@
             </div>
         </div>
         <!-- PC CONTENT END-->
-    </body>
+    </body
 </html>

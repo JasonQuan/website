@@ -34,7 +34,6 @@
 .ui-dialog-titlebar{
     display: none;
 }
-.opt,.ui-button-text{
-  font-size:12px;
-  display: none;
+.opt{
+  /*display: none;*/
 }

@@ -8,6 +8,7 @@ package com.jason.entity;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -19,6 +20,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -31,16 +33,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "ARTICLE")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Article.findAll", query = "SELECT a FROM Article a"),
-    @NamedQuery(name = "Article.findById", query = "SELECT a FROM Article a WHERE a.id = :id"),
-    @NamedQuery(name = "Article.findByTitle", query = "SELECT a FROM Article a WHERE a.title = :title"),
-    @NamedQuery(name = "Article.findByShortName", query = "SELECT a FROM Article a WHERE a.shortName = :shortName"),
-    @NamedQuery(name = "Article.findByAuthor", query = "SELECT a FROM Article a WHERE a.author = :author"),
-    @NamedQuery(name = "Article.findBySort", query = "SELECT a FROM Article a WHERE a.sort = :sort"),
-    @NamedQuery(name = "Article.findByUpdateTime", query = "SELECT a FROM Article a WHERE a.updateTime = :updateTime"),
-    @NamedQuery(name = "Article.findByVersion", query = "SELECT a FROM Article a WHERE a.version = :version"),
-    @NamedQuery(name = "Article.findByCreateTime", query = "SELECT a FROM Article a WHERE a.createTime = :createTime"),
-    @NamedQuery(name = "Article.findByStatus", query = "SELECT a FROM Article a WHERE a.status = :status")})
+    @NamedQuery(name = "ARTICLE.findAll", query = "SELECT a FROM ARTICLE a"),
+    @NamedQuery(name = "ARTICLE.findById", query = "SELECT a FROM ARTICLE a WHERE a.id = :id"),
+    @NamedQuery(name = "ARTICLE.findByTitle", query = "SELECT a FROM ARTICLE a WHERE a.title = :title"),
+    @NamedQuery(name = "ARTICLE.findByShortName", query = "SELECT a FROM ARTICLE a WHERE a.shortName = :shortName"),
+    @NamedQuery(name = "ARTICLE.findByAuthor", query = "SELECT a FROM ARTICLE a WHERE a.author = :author"),
+    @NamedQuery(name = "ARTICLE.findBySort", query = "SELECT a FROM ARTICLE a WHERE a.sort = :sort"),
+    @NamedQuery(name = "ARTICLE.findByUpdateTime", query = "SELECT a FROM ARTICLE a WHERE a.updateTime = :updateTime"),
+    @NamedQuery(name = "ARTICLE.findByVersion", query = "SELECT a FROM ARTICLE a WHERE a.version = :version"),
+    @NamedQuery(name = "ARTICLE.findByCreateTime", query = "SELECT a FROM ARTICLE a WHERE a.createTime = :createTime"),
+    @NamedQuery(name = "ARTICLE.findByStatus", query = "SELECT a FROM ARTICLE a WHERE a.status = :status")})
 public class Article implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -71,6 +73,8 @@ public class Article implements Serializable {
     private Date updateTime;
     @Column(name = "VERSION")
     private Integer version;
+    @Column(name = "IS_TOP")
+    private Boolean isTop;
     @Column(name = "CREATE_TIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
@@ -78,10 +82,28 @@ public class Article implements Serializable {
     @Column(name = "STATUS")
     private String status;
     @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Category categoryId;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Category category;
+    @Transient
+    private String token;
 
     public Article() {
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Boolean getIsTop() {
+        return isTop;
+    }
+
+    public void setIsTop(Boolean isTop) {
+        this.isTop = isTop;
     }
 
     public Article(String id) {
@@ -168,12 +190,12 @@ public class Article implements Serializable {
         this.status = status;
     }
 
-    public Category getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(Category categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Category categoryId) {
+        this.category = categoryId;
     }
 
     @Override
@@ -198,7 +220,7 @@ public class Article implements Serializable {
 
     @Override
     public String toString() {
-        return "com.jason.entity.Article[ id=" + id + " ]";
+        return "com.jason.entity.ARTICLE[ id=" + id + " ]";
     }
     
 }

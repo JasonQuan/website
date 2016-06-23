@@ -6,12 +6,15 @@
 package com.jason.dao;
 
 import com.jason.entity.Article;
+import com.jason.entity.Category;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import org.eclipse.persistence.config.CacheUsage;
+import org.eclipse.persistence.config.QueryHints;
 
 /**
  *
@@ -56,5 +59,22 @@ public class ArticleDao {
         Query createQuery = em.createNativeQuery("delete from ARTICLE where ID = ?").setParameter("1", id);
         createQuery.executeUpdate();
         transaction.commit();
+    }
+
+    public List<Category> getCategory() {
+        em.getEntityManagerFactory().getCache().evict(Category.class);
+        return em.createQuery("select o from Category o where o.parentCategory = null", Category.class)
+                .setHint(QueryHints.CACHE_USAGE,CacheUsage.NoCache)
+                .getResultList();
+    }
+
+    public Article getById(String id) {        
+        return em.createQuery("select o from Article o where o.id =:id", Article.class).setParameter("id", id).getSingleResult();
+    }
+
+    public Article getIndexArticle() {
+        return em.createQuery("select o from Article o where o.isTop = true order by o.updateTime", Article.class)
+                .setMaxResults(1).setFirstResult(0)
+                .getSingleResult();
     }
 }

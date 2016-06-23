@@ -20,15 +20,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
 
 /**
  *
  * @author chenquan
  */
 @Entity
-@Table(name = "category")
+@Table(name = "CATEGORY")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c"),
@@ -49,29 +51,23 @@ public class Category implements Serializable {
     private String name;
     @Column(name = "SORT")
     private Integer sort;
-    @Column(name = "CATEGORY_NAME")
-    private String categoryName;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parentId")
-    private List<Category> categoryList;
-    @JoinColumn(name = "PARENT_ID", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Category parentId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId")
-    private List<Article> articleList;
+    @XmlElement
+    @XmlInverseReference(mappedBy = "parentCategory")
+    @OneToMany(mappedBy = "parentCategory")
+    private List<Category> categorys;
+    @JoinColumn(name = "PARENT_CATEGORY", referencedColumnName = "ID")
+    @ManyToOne
+    private Category parentCategory;
+    @XmlElement
+    @XmlInverseReference(mappedBy = "category")
+    @OneToMany(mappedBy = "category",cascade = CascadeType.REFRESH)
+    private List<Article> articles;
 
     public Category() {
     }
 
     public Category(String id) {
         this.id = id;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
     }
 
     public String getId() {
@@ -100,28 +96,28 @@ public class Category implements Serializable {
 
     @XmlTransient
     public List<Category> getCategoryList() {
-        return categoryList;
+        return categorys;
     }
 
-    public void setCategoryList(List<Category> categoryList) {
-        this.categoryList = categoryList;
+    public void setCategorys(List<Category> categoryList) {
+        this.categorys = categoryList;
     }
 
-    public Category getParentId() {
-        return parentId;
+    public Category getParentCategory() {
+        return parentCategory;
     }
 
-    public void setParentId(Category parentId) {
-        this.parentId = parentId;
+    public void setParentCategory(Category parentCategory) {
+        this.parentCategory = parentCategory;
     }
 
     @XmlTransient
-    public List<Article> getArticleList() {
-        return articleList;
+    public List<Article> getArticles() {
+        return articles;
     }
 
-    public void setArticleList(List<Article> articleList) {
-        this.articleList = articleList;
+    public void setArticles(List<Article> articleList) {
+        this.articles = articleList;
     }
 
     @Override
@@ -148,5 +144,5 @@ public class Category implements Serializable {
     public String toString() {
         return "com.jason.entity.Category[ id=" + id + " ]";
     }
-    
+
 }
